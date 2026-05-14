@@ -23,6 +23,10 @@ class BookViewModel: ViewModel() {
                 onChangeIsRead(isRead = event.isRead)
             }
 
+            is BookEvent.OnChangeMode -> {
+                onChangeMode(mode = event.mode)
+            }
+
             is BookEvent.OnShowDialog -> { showDialog() }
 
             is BookEvent.OnCloseDialog -> { closeDialog() }
@@ -46,6 +50,12 @@ class BookViewModel: ViewModel() {
     private fun onChangeIsRead(isRead: Boolean) {
         _uiState.update {
             it.copy(isRead = isRead)
+        }
+    }
+
+    private fun onChangeMode(mode: BookMode) {
+        _uiState.update {
+            it.copy(mode = mode)
         }
     }
 

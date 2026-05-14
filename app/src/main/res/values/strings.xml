@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">BookForm_JetpackCompose</string>
+
+    <string name="label_title_book">Titulo del libro</string>
+    <string name="label_name_author">Nombre del autor</string>
 </resources>

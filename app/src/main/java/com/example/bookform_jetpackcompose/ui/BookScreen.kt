@@ -5,21 +5,57 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.bookform_jetpackcompose.R
 import com.example.bookform_jetpackcompose.ui.components.HeaderDialog
 import com.example.bookform_jetpackcompose.ui.components.MainButtonCustom
 import com.example.bookform_jetpackcompose.ui.components.OutlinedTextFieldCustom
 import com.example.bookform_jetpackcompose.ui.components.SwitchCustom
 
+@Preview(showBackground = true)
 @Composable
-fun BookScreen() {
+fun BookScreen(
+    bookViewModel: BookViewModel = viewModel()
+) {
+    val uiState by bookViewModel.uiState.collectAsStateWithLifecycle()
 
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(12.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        Text(
+            text = "Mi Biblioteca",
+            style = MaterialTheme.typography.titleLarge
+        )
+
+        MainButtonCustom(
+            text = "REGISTRAR NUEVO LIBRO",
+            onClick = {
+                bookViewModel.onEvent(
+                    BookEvent.OnShowDialog
+                )
+            }
+        )
+    }
+
+    BookForm(
+        uiState = uiState,
+        onEvent = bookViewModel::onEvent
+    )
 }
 
 @Composable
@@ -59,6 +95,8 @@ private fun BookForm(
         }
     }
 
+    val isRead = mode is BookMode.View
+
     if (uiState.showDialog) {
         Dialog(
             onDismissRequest = {
@@ -70,7 +108,7 @@ private fun BookForm(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color.White)
+                    .background(MaterialTheme.colorScheme.surface)
                     .padding(8.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
@@ -83,7 +121,8 @@ private fun BookForm(
                             BookEvent.OnChangeTitle(it)
                         )
                     },
-                    label = stringResource(R.string.label_title_book)
+                    label = stringResource(R.string.label_title_book),
+                    readOnly = isRead
                 )
 
                 OutlinedTextFieldCustom(

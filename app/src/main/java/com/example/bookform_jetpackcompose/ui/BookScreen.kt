@@ -68,7 +68,7 @@ fun BookScreen(
         ) {
             if (books.isEmpty()) {
                 item {
-                    MessageBook(message = "No Se Encontraron Libros")
+                    MessageBook()
                 }
             } else {
                 items(books) { book ->
@@ -80,23 +80,6 @@ fun BookScreen(
                 }
             }
         }
-
-        /*LazyColumn(
-            modifier = Modifier
-                .border(
-                    width = 1.dp,
-                    color = Color.Black,
-                    shape = RoundedCornerShape(8.dp)
-                )
-        ) {
-            items(books) { book ->
-                ItemBook(
-                    title = book.title,
-                    author = book.author,
-                    isRead = book.isRead
-                )
-            }
-        }*/
     }
 
     BookForm(
@@ -240,7 +223,7 @@ private fun ItemBook(title: String, author: String, isRead: Boolean) {
 }
 
 @Composable
-private fun MessageBook(message: String) {
+private fun MessageBook() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -248,7 +231,7 @@ private fun MessageBook(message: String) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = message,
+            text = "No Se Encontraron Libros",
             style = MaterialTheme.typography.bodyLarge
         )
     }

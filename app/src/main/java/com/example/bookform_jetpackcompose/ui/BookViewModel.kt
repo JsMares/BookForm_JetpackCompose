@@ -78,7 +78,17 @@ class BookViewModel: ViewModel() {
         }
     }
 
-    private fun onSave() {  }
+    private fun onSave() { 
+        val mode = uiState.value.mode
+        
+        when (mode) {
+            BookMode.Create -> {
+                addBook()
+            }
+            is BookMode.Edit -> TODO()
+            is BookMode.View -> TODO()
+        }
+    }
 
     private fun addBook() {
         lastId++

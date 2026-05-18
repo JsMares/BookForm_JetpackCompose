@@ -5,6 +5,8 @@ data class BookUiState(
     val author: String = "",
     val isRead: Boolean = false,
 
+    val books: List<BookModel> = emptyList(),
+
     val showDialog: Boolean = false,
 
     val mode: BookMode = BookMode.Create

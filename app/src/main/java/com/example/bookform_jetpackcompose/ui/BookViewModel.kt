@@ -6,8 +6,15 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 
 class BookViewModel: ViewModel() {
+    companion object {
+        var lastId: Int = 0
+    }
+
     private val _uiState = MutableStateFlow(BookUiState())
     val uiState: StateFlow<BookUiState> = _uiState
+
+    // Variable temporal para mostrar libros. En siguientes actualizaciones se sustituirá por Combine
+    val showBooks = _uiState.value.books
     
     fun onEvent(event: BookEvent) {
         when (event) {
@@ -72,4 +79,24 @@ class BookViewModel: ViewModel() {
     }
 
     private fun onSave() {  }
+
+    private fun addBook() {
+        lastId++
+        val id = lastId
+
+        val state = _uiState.value
+
+        val data = BookModel(
+            id = id,
+            title = state.title,
+            author = state.author,
+            isRead = state.isRead
+        )
+
+        _uiState.update {
+            it.copy(
+                books = it.books + data
+            )
+        }
+    }
 }

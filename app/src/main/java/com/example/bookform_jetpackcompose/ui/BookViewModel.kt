@@ -84,9 +84,13 @@ class BookViewModel: ViewModel() {
         when (mode) {
             BookMode.Create -> {
                 addBook()
+                clearFields()
+                closeDialog()
             }
             is BookMode.Edit -> TODO()
-            is BookMode.View -> TODO()
+            is BookMode.View -> {
+                return
+            }
         }
     }
 
@@ -106,6 +110,16 @@ class BookViewModel: ViewModel() {
         _uiState.update {
             it.copy(
                 books = it.books + data
+            )
+        }
+    }
+
+    private fun clearFields() {
+        _uiState.update {
+            it.copy(
+                title = "",
+                author = "",
+                isRead = false
             )
         }
     }

@@ -10,5 +10,6 @@ sealed class BookEvent {
     data object OnShowDialog : BookEvent()
     data object OnCloseDialog : BookEvent()
 
+    data class OnShowBookClick(val bookId: Int) : BookEvent()
     data object OnSaveClick : BookEvent()
 }

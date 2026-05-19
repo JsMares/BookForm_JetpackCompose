@@ -1,9 +1,11 @@
 package com.example.bookform_jetpackcompose.ui
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import kotlin.math.log
 
 class BookViewModel: ViewModel() {
     companion object {
@@ -37,6 +39,10 @@ class BookViewModel: ViewModel() {
             is BookEvent.OnShowDialog -> { showDialog() }
 
             is BookEvent.OnCloseDialog -> { closeDialog() }
+
+            is BookEvent.OnShowBookClick -> {
+                onLoadDataBook(event.bookId)
+            }
 
             BookEvent.OnSaveClick -> { onSave() }
         }
@@ -122,5 +128,9 @@ class BookViewModel: ViewModel() {
                 isRead = false
             )
         }
+    }
+
+    private fun onLoadDataBook(bookId: Int) {
+        Log.d("BOOK_ID:", bookId.toString())
     }
 }

@@ -2,6 +2,7 @@ package com.example.bookform_jetpackcompose.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -76,7 +77,11 @@ fun BookScreen(
                         title = book.title,
                         author = book.author,
                         isRead = book.isRead
-                    )
+                    ) {
+                        bookViewModel.onEvent(
+                            BookEvent.OnShowBookClick(bookId = book.id)
+                        )
+                    }
                 }
             }
         }
@@ -185,12 +190,13 @@ private fun BookForm(
 }
 
 @Composable
-private fun ItemBook(title: String, author: String, isRead: Boolean) {
+private fun ItemBook(title: String, author: String, isRead: Boolean, onClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 12.dp, vertical = 6.dp)
             .background(MaterialTheme.colorScheme.surface)
+            .clickable { onClick() }
     ) {
         Text(
             text = title,

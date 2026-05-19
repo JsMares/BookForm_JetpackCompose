@@ -36,12 +36,17 @@ class BookViewModel: ViewModel() {
                 onChangeMode(mode = event.mode)
             }
 
-            is BookEvent.OnShowDialog -> { showDialog() }
+            is BookEvent.OnShowDialog -> {
+                clearFields()
+                showDialog()
+            }
 
-            is BookEvent.OnCloseDialog -> { closeDialog() }
+            is BookEvent.OnCloseDialog -> closeDialog()
 
-            is BookEvent.OnShowBookClick -> {
+            is BookEvent.OnBookClick -> {
+                onChangeMode(mode = BookMode.View(event.bookId))
                 onLoadDataBook(event.bookId)
+                showDialog()
             }
 
             BookEvent.OnSaveClick -> { onSave() }
@@ -90,8 +95,8 @@ class BookViewModel: ViewModel() {
         when (mode) {
             BookMode.Create -> {
                 addBook()
-                clearFields()
-                closeDialog()
+
+                finishForm()
             }
             is BookMode.Edit -> TODO()
             is BookMode.View -> {
@@ -104,7 +109,7 @@ class BookViewModel: ViewModel() {
         lastId++
         val id = lastId
 
-        val state = _uiState.value
+        val state = uiState.value
 
         val data = BookModel(
             id = id,
@@ -130,7 +135,24 @@ class BookViewModel: ViewModel() {
         }
     }
 
+    private fun finishForm() {
+        clearFields()
+        closeDialog()
+    }
+
     private fun onLoadDataBook(bookId: Int) {
         Log.d("BOOK_ID:", bookId.toString())
+
+        val books = _uiState.value.books
+
+        val data = books.first { it.id == bookId }
+
+        _uiState.update {
+            it.copy(
+                title = data.title,
+                author = data.author,
+                isRead = data.isRead
+            )
+        }
     }
 }

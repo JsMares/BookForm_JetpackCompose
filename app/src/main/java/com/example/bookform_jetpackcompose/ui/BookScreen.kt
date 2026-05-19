@@ -79,7 +79,7 @@ fun BookScreen(
                         isRead = book.isRead
                     ) {
                         bookViewModel.onEvent(
-                            BookEvent.OnShowBookClick(bookId = book.id)
+                            BookEvent.OnBookClick(bookId = book.id)
                         )
                     }
                 }

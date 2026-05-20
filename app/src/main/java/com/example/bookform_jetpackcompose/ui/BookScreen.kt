@@ -116,7 +116,7 @@ private fun BookForm(
         is BookMode.View -> {
             {
                 onEvent(
-                    BookEvent.OnChangeMode(BookMode.Edit(bookId = 0))
+                    BookEvent.OnChangeMode(BookMode.Edit(bookId = uiState.id))
                 )
             }
         }

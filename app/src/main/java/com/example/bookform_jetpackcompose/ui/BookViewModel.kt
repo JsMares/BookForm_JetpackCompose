@@ -1,11 +1,9 @@
 package com.example.bookform_jetpackcompose.ui
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
-import kotlin.math.log
 
 class BookViewModel: ViewModel() {
     companion object {
@@ -16,7 +14,7 @@ class BookViewModel: ViewModel() {
     val uiState: StateFlow<BookUiState> = _uiState
 
     // Variable temporal para mostrar libros. En siguientes actualizaciones se sustituirá por Combine
-    val showBooks = _uiState.value.books
+    //val showBooks = _uiState.value.books
     
     fun onEvent(event: BookEvent) {
         when (event) {
@@ -98,7 +96,9 @@ class BookViewModel: ViewModel() {
 
                 finishForm()
             }
-            is BookMode.Edit -> TODO()
+            is BookMode.Edit -> {
+                onEditBook(mode.bookId)
+            }
             is BookMode.View -> {
                 return
             }
@@ -141,18 +141,38 @@ class BookViewModel: ViewModel() {
     }
 
     private fun onLoadDataBook(bookId: Int) {
-        Log.d("BOOK_ID:", bookId.toString())
-
         val books = _uiState.value.books
 
         val data = books.first { it.id == bookId }
 
         _uiState.update {
             it.copy(
+                id = data.id,
                 title = data.title,
                 author = data.author,
                 isRead = data.isRead
             )
         }
     }
+
+    private fun onEditBook(bookId: Int) {
+        val state =uiState.value
+
+        _uiState.update { currentState ->
+            currentState.copy(
+                books = currentState.books.map { book ->
+                    if (book.id == bookId) {
+                        book.copy(
+                            title = state.title,
+                            author = state.author,
+                            isRead = state.isRead
+                        )
+                    } else {
+                        book
+                    }
+                }
+            )
+        }
+    }
+
 }

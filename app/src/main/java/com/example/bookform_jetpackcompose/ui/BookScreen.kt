@@ -167,7 +167,8 @@ private fun BookForm(
                             BookEvent.OnChangeAuthor(it)
                         )
                     },
-                    label = stringResource(R.string.label_name_author)
+                    label = stringResource(R.string.label_name_author),
+                    readOnly = isReadOnly
                 )
 
                 SwitchCustom(
@@ -177,7 +178,8 @@ private fun BookForm(
                         onEvent(
                             BookEvent.OnChangeIsRead(it)
                         )
-                    }
+                    },
+                    enabled = !isReadOnly
                 )
 
                 MainButtonCustom(

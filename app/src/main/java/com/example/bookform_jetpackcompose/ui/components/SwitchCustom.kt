@@ -15,7 +15,8 @@ import androidx.compose.ui.unit.dp
 fun SwitchCustom(
     text: String,
     checked: Boolean,
-    onChangeChecked: (Boolean) -> Unit
+    onChangeChecked: (Boolean) -> Unit,
+    enabled: Boolean = true
 ) {
     Row(
         modifier = Modifier
@@ -30,7 +31,8 @@ fun SwitchCustom(
 
         Switch(
             checked = checked,
-            onCheckedChange = { onChangeChecked(it) }
+            onCheckedChange = { onChangeChecked(it) },
+            enabled = enabled
         )
     }
 }

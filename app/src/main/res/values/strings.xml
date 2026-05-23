@@ -1,6 +1,22 @@
 <resources>
     <string name="app_name">BookForm_JetpackCompose</string>
 
+    <string name="main_title">Mi Biblioteca</string>
+
     <string name="label_title_book">Titulo del libro</string>
     <string name="label_name_author">Nombre del autor</string>
+    <string name="label_read_book">Libro leido:</string>
+    <string name="label_read">Leido</string>
+    <string name="label_not_read">No leido</string>
+    <string name="label_book_not_found">No Se Encontraron Libros</string>
+
+    <string name="dialog_title_register">Registrar Nuevo Libro</string>
+    <string name="dialog_title_edit">Editar Detalles del Libro</string>
+    <string name="dialog_title_view">Detalles del Libro</string>
+
+    <string name="button_register">REGISTRAR LIBRO</string>
+    <string name="button_edit">GUARDAR CAMBIOS</string>
+    <string name="button_view">MODIFICAR DETALLES</string>
+
+    <string name="button_open_dialog">REGISTRAR NUEVO LIBRO</string>
 </resources>

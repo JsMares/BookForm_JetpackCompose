@@ -46,12 +46,12 @@ fun BookScreen(
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Text(
-            text = "Mi Biblioteca",
+            text = stringResource(R.string.main_title),
             style = MaterialTheme.typography.titleLarge
         )
 
         MainButtonCustom(
-            text = "REGISTRAR NUEVO LIBRO",
+            text = stringResource(R.string.button_open_dialog),
             onClick = {
                 bookViewModel.onEvent(
                     BookEvent.OnShowDialog
@@ -101,15 +101,15 @@ private fun BookForm(
     val mode = uiState.mode
 
     val titleDialog = when (mode) {
-        BookMode.Create -> "Registrar Nuevo Libro"
-        is BookMode.Edit -> "Editar Detalles del Libro"
-        is BookMode.View -> "Detalles del Libro"
+        BookMode.Create -> stringResource(R.string.dialog_title_register)
+        is BookMode.Edit -> stringResource(R.string.dialog_title_edit)
+        is BookMode.View -> stringResource(R.string.dialog_title_view)
     }
 
     val titleButton = when (mode) {
-        BookMode.Create -> "REGISTRAR LIBRO"
-        is BookMode.Edit -> "GUARDAR CAMBIOS"
-        is BookMode.View -> "MODIFICAR DETALLES"
+        BookMode.Create -> stringResource(R.string.button_register)
+        is BookMode.Edit -> stringResource(R.string.button_edit)
+        is BookMode.View -> stringResource(R.string.button_view)
     }
 
     val actionButton = when (mode) {
@@ -172,7 +172,7 @@ private fun BookForm(
                 )
 
                 SwitchCustom(
-                    text = "Libro leido:",
+                    text = stringResource(R.string.label_read_book),
                     checked = uiState.isRead,
                     onChangeChecked = {
                         onEvent(
@@ -218,7 +218,7 @@ private fun ItemBook(title: String, author: String, isRead: Boolean, onClick: ()
             )
             
             Text(
-                text = if (isRead) "Leido" else "No Leido",
+                text = if (isRead) stringResource(R.string.label_read) else stringResource(R.string.label_not_read),
                 style = MaterialTheme.typography.bodyLarge,
                 color = if (isRead) Color.Green else Color.Red
             )
@@ -239,7 +239,7 @@ private fun MessageBook() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "No Se Encontraron Libros",
+            text = stringResource(R.string.label_book_not_found),
             style = MaterialTheme.typography.bodyLarge
         )
     }

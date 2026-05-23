@@ -98,6 +98,9 @@ class BookViewModel: ViewModel() {
             }
             is BookMode.Edit -> {
                 onEditBook(mode.bookId)
+                onChangeMode(BookMode.Create)
+
+                finishForm()
             }
             is BookMode.View -> {
                 return
@@ -156,7 +159,7 @@ class BookViewModel: ViewModel() {
     }
 
     private fun onEditBook(bookId: Int) {
-        val state =uiState.value
+        val state = uiState.value
 
         _uiState.update { currentState ->
             currentState.copy(
@@ -174,5 +177,4 @@ class BookViewModel: ViewModel() {
             )
         }
     }
-
 }
